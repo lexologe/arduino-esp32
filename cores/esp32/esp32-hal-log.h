@@ -96,9 +96,9 @@ void log_print_buf(const uint8_t *b, size_t len);
 #define isr_log_v(format, ...) ets_printf(ARDUHAL_LOG_FORMAT(V, format), ##__VA_ARGS__)
 #define log_buf_v(b,l) do{ARDUHAL_LOG_COLOR_PRINT(V);log_print_buf(b,l);ARDUHAL_LOG_COLOR_PRINT_END;}while(0)
 #else
-#define log_v(format, ...) do {ESP_LOG_LEVEL_LOCAL(ESP_LOG_VERBOSE, TAG, format, ##__VA_ARGS__);}while(0)
-#define isr_log_v(format, ...) do {ets_printf(LOG_FORMAT(V, format), esp_log_timestamp(), TAG, ##__VA_ARGS__);}while(0)
-#define log_buf_v(b,l) do {ESP_LOG_BUFFER_HEXDUMP(TAG, b, l, ESP_LOG_VERBOSE);}while(0)
+#define log_v(format, ...) do {ESP_LOG_LEVEL_LOCAL(ESP_LOG_VERBOSE, pathToFileName(__FILE__), format, ##__VA_ARGS__);}while(0)
+#define isr_log_v(format, ...) do {ets_printf(LOG_FORMAT(V, format), esp_log_timestamp(), pathToFileName(__FILE__), ##__VA_ARGS__);}while(0)
+#define log_buf_v(b,l) do {ESP_LOG_BUFFER_HEXDUMP(pathToFileName(__FILE__), b, l, ESP_LOG_VERBOSE);}while(0)
 #endif
 #else
 #define log_v(format, ...)  do {} while(0)
@@ -112,9 +112,9 @@ void log_print_buf(const uint8_t *b, size_t len);
 #define isr_log_d(format, ...) ets_printf(ARDUHAL_LOG_FORMAT(D, format), ##__VA_ARGS__)
 #define log_buf_d(b,l) do{ARDUHAL_LOG_COLOR_PRINT(D);log_print_buf(b,l);ARDUHAL_LOG_COLOR_PRINT_END;}while(0)
 #else
-#define log_d(format, ...) do {ESP_LOG_LEVEL_LOCAL(ESP_LOG_DEBUG, TAG, format, ##__VA_ARGS__);}while(0)
-#define isr_log_d(format, ...) do {ets_printf(LOG_FORMAT(D, format), esp_log_timestamp(), TAG, ##__VA_ARGS__);}while(0)
-#define log_buf_d(b,l) do {ESP_LOG_BUFFER_HEXDUMP(TAG, b, l, ESP_LOG_DEBUG);}while(0)
+#define log_d(format, ...) do {ESP_LOG_LEVEL_LOCAL(ESP_LOG_DEBUG, pathToFileName(__FILE__), format, ##__VA_ARGS__);}while(0)
+#define isr_log_d(format, ...) do {ets_printf(LOG_FORMAT(D, format), esp_log_timestamp(), pathToFileName(__FILE__), ##__VA_ARGS__);}while(0)
+#define log_buf_d(b,l) do {ESP_LOG_BUFFER_HEXDUMP(pathToFileName(__FILE__), b, l, ESP_LOG_DEBUG);}while(0)
 #endif
 #else
 #define log_d(format, ...)  do {} while(0)
@@ -128,9 +128,9 @@ void log_print_buf(const uint8_t *b, size_t len);
 #define isr_log_i(format, ...) ets_printf(ARDUHAL_LOG_FORMAT(I, format), ##__VA_ARGS__)
 #define log_buf_i(b,l) do{ARDUHAL_LOG_COLOR_PRINT(I);log_print_buf(b,l);ARDUHAL_LOG_COLOR_PRINT_END;}while(0)
 #else
-#define log_i(format, ...) do {ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO, TAG, format, ##__VA_ARGS__);}while(0)
-#define isr_log_i(format, ...) do {ets_printf(LOG_FORMAT(I, format), esp_log_timestamp(), TAG, ##__VA_ARGS__);}while(0)
-#define log_buf_i(b,l) do {ESP_LOG_BUFFER_HEXDUMP(TAG, b, l, ESP_LOG_INFO);}while(0)
+#define log_i(format, ...) do {ESP_LOG_LEVEL_LOCAL(ESP_LOG_INFO, pathToFileName(__FILE__), format, ##__VA_ARGS__);}while(0)
+#define isr_log_i(format, ...) do {ets_printf(LOG_FORMAT(I, format), esp_log_timestamp(), pathToFileName(__FILE__), ##__VA_ARGS__);}while(0)
+#define log_buf_i(b,l) do {ESP_LOG_BUFFER_HEXDUMP(pathToFileName(__FILE__), b, l, ESP_LOG_INFO);}while(0)
 #endif
 #else
 #define log_i(format, ...) do {} while(0)
@@ -144,9 +144,9 @@ void log_print_buf(const uint8_t *b, size_t len);
 #define isr_log_w(format, ...) ets_printf(ARDUHAL_LOG_FORMAT(W, format), ##__VA_ARGS__)
 #define log_buf_w(b,l) do{ARDUHAL_LOG_COLOR_PRINT(W);log_print_buf(b,l);ARDUHAL_LOG_COLOR_PRINT_END;}while(0)
 #else
-#define log_w(format, ...) do {ESP_LOG_LEVEL_LOCAL(ESP_LOG_WARN, TAG, format, ##__VA_ARGS__);}while(0)
-#define isr_log_w(format, ...) do {ets_printf(LOG_FORMAT(W, format), esp_log_timestamp(), TAG, ##__VA_ARGS__);}while(0)
-#define log_buf_w(b,l) do {ESP_LOG_BUFFER_HEXDUMP(TAG, b, l, ESP_LOG_WARN);}while(0)
+#define log_w(format, ...) do {ESP_LOG_LEVEL_LOCAL(ESP_LOG_WARN, pathToFileName(__FILE__), format, ##__VA_ARGS__);}while(0)
+#define isr_log_w(format, ...) do {ets_printf(LOG_FORMAT(W, format), esp_log_timestamp(), pathToFileName(__FILE__), ##__VA_ARGS__);}while(0)
+#define log_buf_w(b,l) do {ESP_LOG_BUFFER_HEXDUMP(pathToFileName(__FILE__), b, l, ESP_LOG_WARN);}while(0)
 #endif
 #else
 #define log_w(format, ...) do {} while(0)
@@ -160,9 +160,9 @@ void log_print_buf(const uint8_t *b, size_t len);
 #define isr_log_e(format, ...) ets_printf(ARDUHAL_LOG_FORMAT(E, format), ##__VA_ARGS__)
 #define log_buf_e(b,l) do{ARDUHAL_LOG_COLOR_PRINT(E);log_print_buf(b,l);ARDUHAL_LOG_COLOR_PRINT_END;}while(0)
 #else
-#define log_e(format, ...) do {ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR, TAG, format, ##__VA_ARGS__);}while(0)
-#define isr_log_e(format, ...) do {ets_printf(LOG_FORMAT(E, format), esp_log_timestamp(), TAG, ##__VA_ARGS__);}while(0)
-#define log_buf_e(b,l) do {ESP_LOG_BUFFER_HEXDUMP(TAG, b, l, ESP_LOG_ERROR);}while(0)
+#define log_e(format, ...) do {ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR, pathToFileName(__FILE__), format, ##__VA_ARGS__);}while(0)
+#define isr_log_e(format, ...) do {ets_printf(LOG_FORMAT(E, format), esp_log_timestamp(), pathToFileName(__FILE__), ##__VA_ARGS__);}while(0)
+#define log_buf_e(b,l) do {ESP_LOG_BUFFER_HEXDUMP(pathToFileName(__FILE__), b, l, ESP_LOG_ERROR);}while(0)
 #endif
 #else
 #define log_e(format, ...) do {} while(0)
@@ -176,9 +176,9 @@ void log_print_buf(const uint8_t *b, size_t len);
 #define isr_log_n(format, ...) ets_printf(ARDUHAL_LOG_FORMAT(E, format), ##__VA_ARGS__)
 #define log_buf_n(b,l) do{ARDUHAL_LOG_COLOR_PRINT(E);log_print_buf(b,l);ARDUHAL_LOG_COLOR_PRINT_END;}while(0)
 #else
-#define log_n(format, ...) do {ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR, TAG, format, ##__VA_ARGS__);}while(0)
-#define isr_log_n(format, ...) do {ets_printf(LOG_FORMAT(E, format), esp_log_timestamp(), TAG, ##__VA_ARGS__);}while(0)
-#define log_buf_n(b,l) do {ESP_LOG_BUFFER_HEXDUMP(TAG, b, l, ESP_LOG_ERROR);}while(0)
+#define log_n(format, ...) do {ESP_LOG_LEVEL_LOCAL(ESP_LOG_ERROR, pathToFileName(__FILE__), format, ##__VA_ARGS__);}while(0)
+#define isr_log_n(format, ...) do {ets_printf(LOG_FORMAT(E, format), esp_log_timestamp(), pathToFileName(__FILE__), ##__VA_ARGS__);}while(0)
+#define log_buf_n(b,l) do {ESP_LOG_BUFFER_HEXDUMP(pathToFileName(__FILE__), b, l, ESP_LOG_ERROR);}while(0)
 #endif
 #else
 #define log_n(format, ...) do {} while(0)
